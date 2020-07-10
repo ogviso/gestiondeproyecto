@@ -14,14 +14,6 @@ namespace WebApplication2.Models
         private List<Tarea> tareas = new List<Tarea>();
         
 
-        public Proyecto(int idCliente, int idProyecto, string nombre)
-        {
-            this.IdCliente = idCliente;
-            this.Id = idProyecto;
-            this.Nombre = nombre;
-            this.EstadoProyecto = Estado.Vigente;
-        }
-
         public enum Estado
         {
             Vigente,

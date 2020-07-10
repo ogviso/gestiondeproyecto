@@ -10,8 +10,8 @@ using WebApplication2.Models;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200618001035_Inicial")]
-    partial class Inicial
+    [Migration("20200710225816_Prueba-Migracion-mugre")]
+    partial class PruebaMigracionmugre
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,9 @@ namespace WebApplication2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Nombre");
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -44,7 +46,9 @@ namespace WebApplication2.Migrations
 
                     b.Property<DateTime>("FechaIngreso");
 
-                    b.Property<string>("Nombre");
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<string>("Usuario");
 

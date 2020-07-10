@@ -11,11 +11,6 @@ namespace WebApplication2.Models
         public int LimitecantPerfiles { get; set; }
         public float PorcentajeAumento { get; set; }
 
-        public EscalaAumentoxPerfil(int id, int limite, float porcentaje)
-        {
-            this.Id = id;
-            this.LimitecantPerfiles = limite;
-            this.PorcentajeAumento = porcentaje;
-        }
+        
     }
 }

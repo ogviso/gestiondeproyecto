@@ -10,10 +10,6 @@ namespace WebApplication2.Models
         public int Id { get; set; }
         public float PorcentajeAumento { get; set; }
 
-        public EscalaHorasOB(int id, float porcentaje)
-        {
-            this.Id = id;
-            this.PorcentajeAumento = porcentaje;
-        }
+       
     }
 }

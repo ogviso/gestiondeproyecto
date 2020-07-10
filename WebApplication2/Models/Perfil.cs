@@ -11,12 +11,7 @@ namespace WebApplication2.Models
         public Tipo TipoPerfil { get; set; }
         public float ValorHorario { get; set; }
 
-        public Perfil(int id, Tipo tipo, float valor)
-        {
-            this.Id = id;
-            this.TipoPerfil = tipo;
-            this.ValorHorario = valor;
-        }
+        
         public enum Tipo
         {
             analista,

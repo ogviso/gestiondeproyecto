@@ -17,16 +17,7 @@ namespace WebApplication2.Models
         private List<HorasTrabajadas> HorasTrabajadas = new List<HorasTrabajadas>();
 
 
-        public Tarea(int idProyecto, int idEmpleado, int idPerfil, int idTarea, string nombre, float horasEsti, float HorasOB)
-        {
-            this.IdProyecto = idProyecto;
-            this.IdEmpleado = idEmpleado;
-            this.IdPerfil = idPerfil;
-            this.Id = idTarea;
-            this.Nombre = nombre;
-            this.HorasEstimadas = horasEsti;
-            this.HorasOB = HorasOB;
-        }
+        
 
         public void AgregarHorasTrabajadas(HorasTrabajadas horasT)
         {

@@ -17,6 +17,25 @@ namespace WebApplication2.Models
             .UseLoggerFactory(new LoggerFactory().AddConsole((category, level) => level == LogLevel.Information && category == DbLoggerCategory.Database.Command.Name, true));
         }
 
+
+        // Aca ponemos la configuracion que requiere cada entidad para EF cree las migraciones
+        //#region Required
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Cliente>()
+                .Property(b => b.Nombre)
+                .IsRequired()
+                .HasMaxLength(50);
+
+
+            modelBuilder.Entity<Empleado>()
+                .Property(b => b.Nombre)
+                .IsRequired()
+                .HasMaxLength(50);
+
+        }
+        //#endregion
+
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<Empleado> Empleado { get; set; }
         public DbSet<EscalaAumentoxAntiguedad> EscalaAumentoxAntiguedad { get; set; }
@@ -27,6 +46,8 @@ namespace WebApplication2.Models
         public DbSet<Perfil> Perfil { get; set; }
         public DbSet<Proyecto> Proyecto { get; set; }
         public DbSet<Tarea> Tarea { get; set; }
+
+
 
         //--------------------------------Agregado por Julian Manesi---------------------------------------
         public void AgregarClientes(Cliente cliente) { Cliente.Add(cliente); }
@@ -61,13 +82,14 @@ namespace WebApplication2.Models
             Cliente c = null;
             foreach (Cliente cliente in Cliente)
             {
-                if (cliente.Id == idCliente)
+                if (cliente.ID == idCliente)
                 {
                     c = cliente;
                 }
             }
             return c;
         }
+
         public List<Proyecto> ObtenerProyectosDeEmpleado(int idEmpleado)
         {
             List<Proyecto> proyectos = new List<Proyecto>();

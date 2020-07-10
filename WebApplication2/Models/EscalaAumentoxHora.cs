@@ -11,11 +11,6 @@ namespace WebApplication2.Models
         public float LimiteHoras { get; set; }
         public float PorcentajeAumento { get; set; }
 
-        public EscalaAumentoxHora(int id, float limite, float porcentaje)
-        {
-            this.Id = id;
-            this.LimiteHoras = limite;
-            this.PorcentajeAumento = porcentaje;
-        }
+        
     }
 }

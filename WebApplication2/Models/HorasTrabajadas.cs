@@ -13,14 +13,7 @@ namespace WebApplication2.Models
         public float CantHoras { get; set; }
         public DateTime Fecha { get; set; }
         public Estado EstadoHoras { get; set; }
-        public HorasTrabajadas(int idProyecto, int idTarea, int idHoras, float cantHoras, DateTime fecha)
-        {
-            this.IdProyecto = idProyecto;
-            this.IdTarea = idTarea;
-            this.Id = idHoras;
-            this.CantHoras = cantHoras;
-            this.Fecha = fecha;
-        }
+        
 
         public enum Estado
         {

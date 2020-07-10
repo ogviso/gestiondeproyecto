@@ -7,16 +7,11 @@ namespace WebApplication2.Models
 {
     public class Cliente
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Nombre { get; set; }
         private List<Proyecto> Proyectos = new List<Proyecto>();
    
-        public Cliente(int id, string nombre)
-        {
-            this.Id = id;
-            this.Nombre = nombre;
-        }
-
+       
         public void agregarProyecto(Proyecto proyecto)
         {
             Proyectos.Add(proyecto);

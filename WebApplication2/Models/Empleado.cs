@@ -14,13 +14,7 @@ namespace WebApplication2.Models
         public string Clave { get; set; }
         
         private List<Tarea> Tareas;
-
-        public Empleado(int id, string nombre, DateTime FechaIng)
-        {
-            this.Id = id;
-            this.Nombre = nombre;
-            this.FechaIngreso = FechaIng;
-        }
+        
 
         public void agregarTareas(Tarea tarea)
         {

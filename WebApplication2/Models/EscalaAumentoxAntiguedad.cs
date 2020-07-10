@@ -10,11 +10,6 @@ namespace WebApplication2.Models
         public int Id { get; set; }
         public int Limiteanios { get; set; }
         public float PorcentajeAumento { get; set; }
-        public EscalaAumentoxAntiguedad(int id, int limite, float porcentaje)
-        {
-            this.Id = id;
-            this.Limiteanios = limite;
-            this.PorcentajeAumento = porcentaje;
-        }
+       
     }
 }
