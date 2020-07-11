@@ -30,6 +30,17 @@ namespace WebApplication2.Models
 
         public void AgregarHorasTrabajadas(HorasTrabajadas horasT)
         {
+            //si un recurso carga más horas de las estimadas tiene que dar una alerta
+            float HorasTrabajadasHastaAhora = 0;
+            foreach (HorasTrabajadas horasTrabajadas in HorasTrabajadas)
+            {
+                HorasTrabajadasHastaAhora += horasTrabajadas.CantHoras;
+            }
+            if(HorasTrabajadasHastaAhora + horasT.CantHoras> HorasEstimadas)
+            {
+                //Dar alerta
+                HorasOB = HorasTrabajadasHastaAhora + horasT.CantHoras - HorasEstimadas;
+            }
             HorasTrabajadas.Add(horasT);
         }
 

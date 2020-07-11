@@ -37,13 +37,15 @@ namespace WebApplication2.Models
         public void AgregarEscalaAumxhora(int id, int limite, float porcentaje) { EscalaAumentoxHora.Add(new EscalaAumentoxHora(id, limite, porcentaje)); }
         public void AgregarEscalaAumxPerfil(int id, int limite, float porcentaje) { EscalaAumentoxPerfil.Add(new EscalaAumentoxPerfil(id, limite, porcentaje)); }
 
-        public void BorrarCliente( int idCliente) { Cliente.Remove(GetCliente(idCliente)); }  
+        public void BorrarCliente( int idCliente) { Cliente.Remove(GetCliente(idCliente)); }
         public void BorrarEmpleado(int idEmpleado) { Empleado.Remove(GetEmpleado(idEmpleado));}
         public void BorrarProyecto(int idProyecto) { Proyecto.Remove(GetProyecto(idProyecto));}
+        public void BorrarPerfil(int idPerfil) { Perfil.Remove(GetPerfil(idPerfil));}
 
         public void ModificarCliente(Cliente cliente) { Cliente.Update(cliente); }
         public void ModificarEmpleado(Empleado empleado) { Empleado.Update(empleado); }
         public void ModificarProyecto(Proyecto proyecto) { Proyecto.Update(proyecto); }
+        public void ModificarPerfil(Perfil perfil) { Perfil.Update(perfil); }
 
         public Proyecto GetProyecto(int idProyecto)
         {
@@ -81,6 +83,20 @@ namespace WebApplication2.Models
             }
             return c;
         }
+
+        public Perfil GetPerfil(int idPerfil)
+        {
+            Perfil p = null;
+            foreach(Perfil perfil in Perfil)
+            {
+                if(perfil.Id == idPerfil)
+                {
+                    p=perfil;
+                }
+            }
+            return p;
+        }
+
         public List<Proyecto> ObtenerProyectosDeEmpleado(int idEmpleado)
         {
             List<Proyecto> proyectos = new List<Proyecto>();
@@ -94,8 +110,38 @@ namespace WebApplication2.Models
             }
             return proyectos;
         }
+       
+        public float liquidacion(int idEmpleado,DateTime fechadesde,DateTime fechahasta)
+        {
+            float costoLiquidacion = 0;
+            //Obtengo la cantidad de horas trabajadas por tipo de perfil por empleado y la multipluco por el valor perfil
+            Empleado emp = GetEmpleado(idEmpleado);
+            float horasPerfil = 0;
+            List<Tarea> tareasPorEMpleado = emp.ObtenerTareas();
+
+            foreach (Perfil perfil in Perfil)
+            {
+                foreach (Tarea tarea in tareasPorEMpleado)
+                {   //busco todas las tareas que coincidan con ese tipo de perfil y sumo las horas
+                    if (perfil.Id == tarea.IdPerfil)
+                    {
+                        foreach (HorasTrabajadas horasTrabajadas in tarea.ObtenerHorasTrabajadas())
+                        {
+                            if (horasTrabajadas.Fecha >= fechadesde && horasTrabajadas.Fecha <= fechahasta && horasTrabajadas.EstadoHoras == Models.HorasTrabajadas.Estado.adeudadas)
+                            {
+                                horasPerfil += horasTrabajadas.CantHoras;
+                                horasTrabajadas.EstadoHoras = Models.HorasTrabajadas.Estado.pagadas;
+                            }
+                        }
+                    }
+                }
+                //inicialmente el calculo es la suma de los productos de la cantidad  de horas con el valor perfil
+                costoLiquidacion += horasPerfil * perfil.ValorHorario;
+                horasPerfil = 0;
+            }
+
+            return costoLiquidacion;
+        }
+        
     }
-
-
-
 }

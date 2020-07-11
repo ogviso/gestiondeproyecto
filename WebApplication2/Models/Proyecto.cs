@@ -67,5 +67,19 @@ namespace WebApplication2.Models
             return horasT;
         }
 
+        //Por cada proyecto se desea conocer las horas adeudadas
+        public float ObtenerHorasAdeudadas()
+        {
+            float horasT = 0;
+            foreach (Tarea tarea in tareas)
+            {
+                foreach (HorasTrabajadas ht in tarea.ObtenerHorasTrabajadas())
+                {
+                    if(ht.EstadoHoras == HorasTrabajadas.Estado.adeudadas)
+                        horasT += ht.CantHoras;
+                }
+            }
+            return horasT;
+        }
     }
 }

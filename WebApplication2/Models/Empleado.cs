@@ -12,8 +12,8 @@ namespace WebApplication2.Models
         public DateTime FechaIngreso { get; set; }
         public string Usuario { get; set; }
         public string Clave { get; set; }
-        
-        private List<Tarea> Tareas;
+        private List<Tarea> Tareas =new List<Tarea>();
+        public List<EmpleadoPerfil> EmpleadoPerfil = new List<EmpleadoPerfil>();
 
         public Empleado(int id, string nombre, DateTime FechaIng)
         {
@@ -54,5 +54,25 @@ namespace WebApplication2.Models
             return tareasPorProyecto;
         }
 
+        //Cantidad de horas trabajadoas por cada empleado en un periodo determinado por proyecto y por tipo de  perfil
+        public float ObtenerHorasEmpleadoProyectoPerfil( DateTime fechadesde, DateTime fechahasta, int idProyecto, int idPerfil)
+        {
+            float horas = 0;
+            List<Tarea> tareasPorProyecto = ObtenerTareasPorProyecto(idProyecto);
+            foreach (Tarea tarea in tareasPorProyecto)
+            {
+                if(idPerfil == tarea.IdPerfil)
+                {
+                    foreach (HorasTrabajadas horasTrabajadas in tarea.ObtenerHorasTrabajadas())
+                    {
+                        if(horasTrabajadas.Fecha>= fechadesde && horasTrabajadas.Fecha <= fechahasta)
+                        {
+                            horas += horasTrabajadas.CantHoras;
+                        }
+                    }
+                }
+            }
+            return horas;
+        }
     }
 }

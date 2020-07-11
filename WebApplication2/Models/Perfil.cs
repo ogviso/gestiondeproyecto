@@ -10,6 +10,7 @@ namespace WebApplication2.Models
         public int Id { get; set; }
         public Tipo TipoPerfil { get; set; }
         public float ValorHorario { get; set; }
+        public List<EmpleadoPerfil> empleadoPerfil { get; set; }
 
         public Perfil(int id, Tipo tipo, float valor)
         {
