@@ -36,10 +36,17 @@ namespace WebApplication2.Models
             {
                 HorasTrabajadasHastaAhora += horasTrabajadas.CantHoras;
             }
-            if(HorasTrabajadasHastaAhora + horasT.CantHoras> HorasEstimadas)
+            /*horas trabajadas hasta ahora =16,horasT.CantHoras=8,HorasEstimadas=22
+             entonces HorasOB=16+8-22=2
+             cantHoras=8-2=6 osea las horas sobrantes las pongo como OB*/
+            if (HorasTrabajadasHastaAhora + horasT.CantHoras> HorasEstimadas)
             {
                 //Dar alerta
                 HorasOB = HorasTrabajadasHastaAhora + horasT.CantHoras - HorasEstimadas;
+                if (horasT.CantHoras - HorasOB > 0)
+                    horasT.CantHoras = horasT.CantHoras - HorasOB;
+                else
+                    horasT.CantHoras = 0;
             }
             HorasTrabajadas.Add(horasT);
         }

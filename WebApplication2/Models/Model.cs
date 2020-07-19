@@ -118,7 +118,9 @@ namespace WebApplication2.Models
             Empleado emp = GetEmpleado(idEmpleado);
             float horasPerfil = 0;
             List<Tarea> tareasPorEMpleado = emp.ObtenerTareas();
-
+            float HorasTotales = 0;
+            int cantPerfiles =0;
+            float HorasOB = 0;
             foreach (Perfil perfil in Perfil)
             {
                 foreach (Tarea tarea in tareasPorEMpleado)
@@ -133,11 +135,37 @@ namespace WebApplication2.Models
                                 horasTrabajadas.EstadoHoras = Models.HorasTrabajadas.Estado.pagadas;
                             }
                         }
+                        cantPerfiles++;
+                        HorasOB += tarea.HorasOB;
                     }
                 }
                 //inicialmente el calculo es la suma de los productos de la cantidad  de horas con el valor perfil
                 costoLiquidacion += horasPerfil * perfil.ValorHorario;
+                //Las Horas Over Budge se pagan al 50%
+                costoLiquidacion += HorasOB * perfil.ValorHorario * 50 / 100;
+                HorasTotales += horasPerfil;
                 horasPerfil = 0;
+                HorasOB = 0;
+            }
+
+            //existe una escala en la que se indica un porcentaje de aumento x hora
+            EscalaAumentoxHora.OrderBy(escalaHoras => escalaHoras.LimiteHoras);
+            foreach (EscalaAumentoxHora aumentoxHoras in EscalaAumentoxHora)
+            {
+                if(aumentoxHoras.LimiteHoras >= HorasTotales)
+                {
+                    costoLiquidacion += costoLiquidacion * aumentoxHoras.PorcentajeAumento / 100;
+                }
+            }
+
+            //si cumplio funciones en mas de un perfil tambien tendra un porcentaje de aumento
+            EscalaAumentoxPerfil.OrderBy(escalaPerfil => escalaPerfil.LimitecantPerfiles);
+            foreach (EscalaAumentoxPerfil aumentoxPerfil in EscalaAumentoxPerfil)
+            {
+                if (aumentoxPerfil.LimitecantPerfiles >= cantPerfiles)
+                {
+                    costoLiquidacion += costoLiquidacion * aumentoxPerfil.PorcentajeAumento / 100;
+                }
             }
 
             return costoLiquidacion;
