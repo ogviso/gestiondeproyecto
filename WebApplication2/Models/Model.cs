@@ -47,6 +47,25 @@ namespace WebApplication2.Models
         public DbSet<Proyecto> Proyecto { get; set; }
         public DbSet<Tarea> Tarea { get; set; }
 
+        //--------------------------------Agregado por OMAR---------------------------------------
+
+        public virtual void Commit()
+        {
+            try
+            {
+                base.SaveChanges();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                //intento interpretar el error
+                    //throw TryDecodeDbUpdateException(dbEx);
+                throw ;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
 
         //--------------------------------Agregado por Julian Manesi---------------------------------------
@@ -105,6 +124,5 @@ namespace WebApplication2.Models
         }
     }
 
-
-
+ 
 }

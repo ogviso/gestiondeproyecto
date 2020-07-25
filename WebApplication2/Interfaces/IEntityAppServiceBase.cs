@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace WebApplication2.Interfaces
 {
-    public interface IEntityAppServiceBase<D>
+    public interface IEntityAppServiceBase<E, D>
+        where E : class, IEntityBase, new()
         where D : class, IDto, new()
     {
         IEnumerable<D> GetAll();

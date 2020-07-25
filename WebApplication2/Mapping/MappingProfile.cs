@@ -13,6 +13,7 @@ namespace WebApplication2.Mapping
         public MappingProfile()
         {
             CreateMap<Cliente, ClienteDto>().ReverseMap();
+            CreateMap<Proyecto, ProyectoDto>().ReverseMap(); // Crear el Dto y ver mapeo!
         }
     }
 }
