@@ -74,5 +74,10 @@ namespace WebApplication2.Models
             }
             return horas;
         }
+
+        public int ObtenerAntiguedad()
+        {
+            return DateTime.Today.Year - FechaIngreso.Year;
+        }
     }
 }

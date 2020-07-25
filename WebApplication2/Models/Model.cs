@@ -168,7 +168,27 @@ namespace WebApplication2.Models
                 }
             }
 
+            //Habra una escala de incremento en los valores horas por antiguedad
+            EscalaAumentoxAntiguedad.OrderBy(escalaAntig => escalaAntig.Limiteanios);
+            foreach (EscalaAumentoxAntiguedad aumentoxAntig in EscalaAumentoxAntiguedad)
+            {
+                if (aumentoxAntig.Limiteanios >= emp.ObtenerAntiguedad())
+                {
+                    costoLiquidacion += costoLiquidacion * aumentoxAntig.PorcentajeAumento / 100;
+                }
+            }
+
             return costoLiquidacion;
+        }
+
+        public float InformeSemanalOB()
+        {
+            float OB = 0;
+            foreach(Tarea tareas in Tarea)
+            {
+                OB += tareas.HorasOB;
+            }
+            return OB;
         }
         
     }
