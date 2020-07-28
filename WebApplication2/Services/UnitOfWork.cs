@@ -10,9 +10,18 @@ namespace WebApplication2.Services
 {
     public class UnitOfWork : IUnitOfWork
     {
+        private readonly IDbFactory<ApplicationDbContext> dbFactory;
         private ApplicationDbContext dbContext;
-        // VER COMO IMPLEMENTAR ESTO
-        //public UnitOfWork()
+        
+        public UnitOfWork(IDbFactory<ApplicationDbContext> dbFactory)
+        {
+            this.dbFactory = dbFactory;
+        }
+
+        public ApplicationDbContext DbContext
+        {
+            get { return DbContext ?? (dbContext = dbFactory.Init()); }
+        }
 
         public void Commit()
         {
