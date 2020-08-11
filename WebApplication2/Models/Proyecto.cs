@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication2.Interfaces;
 
 namespace WebApplication2.Models
 {
-    public class Proyecto
+    public class Proyecto : IEntityBase
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public int IdCliente { get; set; }
         public string Nombre { get; set; }
         public Estado EstadoProyecto { get; set; }
